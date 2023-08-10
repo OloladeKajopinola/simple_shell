@@ -42,6 +42,10 @@ int main(int c, char **argv)
 		}
 		strcpy(lineptr_copy, lineptr);
 
+		/**this block tokenizes input
+		 * and count the number of token
+		 * finally allocates memory for argv
+		 */
 		token = strtok(lineptr, delim);
 		while (token != NULL)
 		{
@@ -65,6 +69,10 @@ int main(int c, char **argv)
 		}
 		argv[a] = NULL;
 
+		/**This function seems to be responsible
+		 * for executing commands
+		 * as it calls execmd with argv array as argument
+		 */
 		execmd(argv);
 	}
 
