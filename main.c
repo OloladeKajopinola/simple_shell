@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * main -
+ * main - check the code
  * @c:
  * @argv:
  * Return - Success (0)
