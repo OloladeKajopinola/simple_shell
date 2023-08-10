@@ -2,11 +2,12 @@
 
 /**
  * main - check the code
- * @c:
- * @argv:
+ * @c: number of command-line arguments 
+ * @argv: an array of strings representing those arguments
  * Return - Success (0)
  */
 
+/* Function begins */
 int main(int c, char **argv)
 {
 	char *prompt = "(Myshell)$ ";
@@ -22,9 +23,11 @@ int main(int c, char **argv)
 	/* typcasting the variables */
 	(void)c;
 
+	/* Beginning of Shell's behaviour*/
 	while (1)
 	{
 		printf("%s", prompt);
+		/* assign everything from user to nchars_read */
 		nchars_read = getline(&lineptr, &n, stdin);
 		if (nchars_read == -1)
 		{
@@ -47,6 +50,11 @@ int main(int c, char **argv)
 		}
 		num_tokens++;
 		argv = malloc(sizeof(char *) * num_tokens);
+		/**Loop tokenizer
+		 * This loop assigns copy of input line
+		 * to argv element and terminates
+		 * when token is NULL
+		 */
 		token = strtok(lineptr_copy, delim);
 		for (a = 0; token != NULL; a++)
 		{
@@ -60,6 +68,7 @@ int main(int c, char **argv)
 		execmd(argv);
 	}
 
+	/* frees dynamically allocated memory for lineptr and lineptr_copy */
 	free(lineptr);
 	free(lineptr_copy);
 
