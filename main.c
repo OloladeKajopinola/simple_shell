@@ -74,6 +74,8 @@ int main(int c, char **argv)
 		 * as it calls execmd with argv array as argument
 		 */
 		execmd(argv);
+		/* Free allocated memory for argv */
+		free_argv(argv);
 	}
 
 	/* frees dynamically allocated memory for lineptr and lineptr_copy */

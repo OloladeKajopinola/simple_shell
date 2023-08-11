@@ -10,5 +10,6 @@
 
 void execmd(char **argv);
 char *locator(char *command);
+void free_argv(char **argv);
 
 #endif /* MAIN_H */
