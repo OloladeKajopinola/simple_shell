@@ -27,12 +27,13 @@ int main(int c, char **argv)
 	while (1)
 	{
 		printf("%s", prompt);
+		fflush(stdout);
 		/* assign everything from user to nchars_read */
 		nchars_read = getline(&lineptr, &n, stdin);
 		if (nchars_read == -1)
 		{
 			printf("Exiting Myshell.......\n");
-			return (-1);
+			break;
 		}
 		lineptr_copy = malloc(sizeof(char) * nchars_read);
 		if (lineptr_copy == NULL)
@@ -75,7 +76,7 @@ int main(int c, char **argv)
 		 */
 		execmd(argv);
 		/* Free allocated memory for argv */
-		free_argv(argv);
+//		free_argv(argv);
 	}
 
 	/* frees dynamically allocated memory for lineptr and lineptr_copy */

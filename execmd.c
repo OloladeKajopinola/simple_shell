@@ -11,35 +11,40 @@
 void execmd(char **argv)
 {
 	char *command = NULL, *actual_command = NULL;
+	int pid;
 
 	if (argv)
 	{
 		command = argv[0];
 		actual_command = locator(command);
-		if (execve(actual_command, argv, NULL) == -1)
-		{
-			perror("Error:");
-		}
-		/* Check if the command is "exit"*/
+
 		if (strcmp(command, "exit") == 0)
 		{
-			/* Free allocated memory and exit the shell */
-			free_argv(argv);
 			printf("Exiting Myshell.......\n");
-			exit(0);/* Use the exit function to  exit the program */
-
+	//		free_argv(argv);
+                        exit(0);
+                }
+		if ((pid = fork()) == -1)
+		{
+			perror("fork");
+		}
+		else if (pid == 0)
+		{
+			if (actual_command == NULL)
+			{
+				printf("Command not found: %s\n", command);
+			exit(1);
+		}
+		if (execve(actual_command, argv, NULL) == -1)
+		{
+			perror("Eexecve");
+			exit(1);
+		}
+		else
+		{
+			int status;
+			waitpid(pid, &status, 0);
+		}
 		}
 	}
-}
-/**
- * free_argv - Free memory allocated for argv
- * @argv: Array of strings containing the command and its arguments
- */
-void free_argv(char **argv)
-{
-	for (int i = 0; argv[i] != NULL; i++)
-	{
-		free(argv[i]);
-	}
-	free(argv);
 }
