@@ -34,17 +34,18 @@ void execmd(char **argv)
 			{
 				printf("Command not found: %s\n", command);
 			exit(1);
-		}
-		if (execve(actual_command, argv, NULL) == -1)
-		{
-			perror("Eexecve");
-			exit(1);
-		}
-		else
-		{
-			int status;
-			waitpid(pid, &status, 0);
-		}
+			}
+			if (execve(actual_command, argv, NULL) == -1)
+			{
+				perror("Execve");
+				exit(1);
+			}
+			else
+			{
+				int status;
+				waitpid(pid, &status, 0);
+			}
+		//	free_argv(argv);
 		}
 	}
 }
