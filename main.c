@@ -33,7 +33,7 @@ int main(int c, char **argv)
 		if (nchars_read == -1)
 		{
 			printf("Exiting Myshell.......\n");
-			break;
+			return (-1);
 		}
 		lineptr_copy = malloc(sizeof(char) * nchars_read);
 		if (lineptr_copy == NULL)
@@ -75,13 +75,12 @@ int main(int c, char **argv)
 		 * as it calls execmd with argv array as argument
 		 */
 		execmd(argv);
-		printf("%s", prompt);
-		fflush(stdout);
+		free(argv);
 	}
 
 	/* frees dynamically allocated memory for lineptr and lineptr_copy */
 	free(lineptr);
-//	free_argv(argv);
+//	free(argv);
 	free(lineptr_copy);
 
 	return (0);
