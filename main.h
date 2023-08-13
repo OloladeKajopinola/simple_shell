@@ -9,8 +9,14 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+extern char **environ;
+
 void execmd(char **argv);
 char *locator(char *command);
 void free_argv(char **argv);
+
+/* These set of functions help execmd to function properly */
+int execute_builtin(char *command, char **argv);
+int external_Command(char *actual_command, char **argv);
 
 #endif /* MAIN_H */
