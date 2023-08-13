@@ -31,6 +31,7 @@ int external_Command(char *actual_command, char **argv)
 		else
 		{
 			int status;
+
 			waitpid(pid, &status, 0);
 		}
 	}
