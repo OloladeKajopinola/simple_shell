@@ -17,30 +17,44 @@ void execmd(char **argv)
 	{
 		command = argv[0];
 		actual_command = locator(command);
-		pid = fork();
-		if (pid < 0)
+
+		if (strcmp(command, "exit") == 0)
+		{
+			printf("Exiting Myshell.......\n");
+			exit(0);
+		}
+		if ((pid = fork ()) == -1)
 		{
 			perror("fork");
-			exit(0);
+		}
+		else if (strcmp(command, "env") == 0)
+		{
+			extern char **environ;
+			char **env = environ;
+
+			while (*env)
+			{
+				printf("%s\n", *env);
+				env++;
+			}
 		}
 		else if (pid == 0)
 		{
-			if (execve(actual_command, argv, NULL) == -1)
-				if (strcmp(command, "exit") != 0)
-				{
-					perror("command not found");
-				}
-			exit(0);
-		}
-		else
-		{
-			int status;
-			waitpid(pid, &status, 0);
-			if (strcmp(command, "exit") == 0)
+			if (actual_command == NULL)
 			{
-				free(argv);
-				printf("Exiting Myshell.......\n");
-				exit(0);
+				printf("Command not found: %s\n", command);
+				exit(1);
+			}
+			if (execve(actual_command, argv, NULL) == -1)
+			{
+				perror("Execve");
+				exit(1);
+			}
+			else
+			{
+				int status;
+
+				waitpid(pid, &status, 0);
 			}
 		}
 	}
