@@ -3,11 +3,9 @@
 /**
  * execute_builtin - Execute a built-in command
  * @command: The command to execute
- * @argv: Array of command-line arguments
- *
  * Return: Return 1 or 0 if not buitlincommand
  */
-int execute_builtin(char *command, char **argv)
+int execute_builtin(char *command)
 {
 	if (strcmp(command, "exit") == 0)
 	{
