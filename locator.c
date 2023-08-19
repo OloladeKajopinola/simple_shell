@@ -22,7 +22,13 @@ char *locator(char *command)
 		while (path_token != NULL)
 		{
 			directory_length = strlen(path_token);
-			file_path = malloc(command_length + directory_length + 2);
+			/* Allocate memory for full path and null-terminator */
+			file_path = (char *)malloc(directory_length + command_length + 2);
+			if (!file_path)
+			{
+				perror("malloc");
+				exit(1);
+			}
 			strcpy(file_path, path_token);
 			strcat(file_path, "/");
 			strcat(file_path, command);
@@ -39,8 +45,16 @@ char *locator(char *command)
 		}
 		free(path_copy);
 		if (stat(command, &buffer) == 0)
-		return (command);
-		return (NULL);
+		{
+			file_path = (char *)malloc(command_length + 1);
+			if (!file_path)
+			{
+				perror("malloc");
+				exit(1);
+			}
+			strcpy(file_path, command);
+			return (file_path);
+		}
 	}
 	return (NULL);
 }

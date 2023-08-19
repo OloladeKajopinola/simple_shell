@@ -37,7 +37,6 @@ void execmd(char **argv)
 			waitpid(pid, &status, 0);
 			if (strcmp(command, "exit") == 0)
 			{
-				free(argv);
 				printf("Exiting Myshell.......\n");
 				exit(0);
 			}
