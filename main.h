@@ -18,5 +18,6 @@ void free_argv(char **argv);
 /* These set of functions help execmd to function properly */
 int execute_builtin(char *command);
 int external_Command(char *actual_command, char **argv);
+int mod(int argc, char **argv);
 
 #endif /* MAIN_H */
